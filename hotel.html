@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Hotel Booking System</title>
+    <style>
+        /* Add custom styles here */
+        body {
+            background-color: #2b8ae9;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+    <style>
+       
+  
+  .container {
+    max-width: 800px;
+    margin: 120px auto;
+    background-color: #62d336;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .room {
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  .booked {
+    background-color: #f83f3f; /* Light pink */
+  }
+  
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Hotel Booking System</h1>
+            <p class="card-text">Welcome to our hotel booking system. Find the perfect stay for your trip.</p>
+            <a href="#" class="btn btn-primary" onclick="showSearchPage()">Search for Hotels</a>
+        </div>
+    </div>
+
+    <div id="searchPage" style="display: none;">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Search for Hotels</h2>
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" class="form-control" id="location" placeholder="Enter location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dates">Dates:</label>
+                        <input type="text" class="form-control" id="dates" placeholder="Select dates" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="roomType">Room Type:</label>
+                        <select class="form-control" id="roomType" required>
+                            <option value="single">Single</option>
+                            <option value="double">Double</option>
+                            <option value="suite">Suite</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="searchHotels()">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        
+        <div id="rooms"></div>
+        <button onclick="bookRoom()">Book Room</button>
+      </div>
+
+    <div id="bookingPage" style="display:flow-root;">
+        <!-- Booking page content goes here -->
+    </div>
+
+    <div id="confirmationPage" style="display:inline-flex;">
+        <!-- Confirmation page content goes here -->
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    function showSearchPage() {
+        document.getElementById('searchPage').style.display = 'block';
+    }
+
+    function searchHotels() {
+        // Perform hotel search logic here
+        // Display results and navigate to booking page
+        document.getElementById('searchPage').style.display = 'none';
+        document.getElementById('bookingPage').style.display = 'block';
+    }
+
+    // Add additional JavaScript for date picker, validation, and other functionalities as needed
+</script>
+<script>
+const rooms = [
+    { id: 1, name: 'Single Room', booked: false },
+    { id: 2, name: 'Hall', booked: false },
+    { id: 3, name: 'Double Room', booked: false },
+    { id: 4, name: 'Suite', booked: false },
+  ];
+  
+  function displayRooms() {
+    const roomsContainer = document.getElementById('rooms');
+    roomsContainer.innerHTML = '';
+  
+    rooms.forEach(room => {
+      const roomElement = document.createElement('div');
+      roomElement.className = `room ${room.booked ? 'booked' : ''}`;
+      roomElement.innerHTML = `<strong>${room.name}</strong> - ${room.booked ? 'Booked' : 'Available'}`;
+      roomsContainer.appendChild(roomElement);
+    });
+  }
+  
+  function bookRoom() {
+    const availableRooms = rooms.filter(room => !room.booked);
+  
+    if (availableRooms.length === 0) {
+      alert('All rooms are booked.');
+      return;
+    }
+  
+    const randomIndex = Math.floor(Math.random() * availableRooms.length);
+    const selectedRoom = availableRooms[randomIndex];
+  
+    selectedRoom.booked = true;
+    displayRooms();
+  }
+  
+  document.addEventListener('DOMContentLoaded', displayRooms);
+
+  </script>
+</body>
+</html>
